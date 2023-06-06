@@ -3,6 +3,7 @@ import os.path
 
 
 def read_operations(file_path=os.path.join(os.path.dirname(__file__), 'operations.json')):
+    '''Получаем обЪект python из обЪекта json'''
     with open(file_path, "r", encoding="utf-8") as file:
         result = json.load(file)
         return result
@@ -30,4 +31,17 @@ def value_correct(value: str) -> str:
 
 
 def sort_date(date):
+    """Сортируем список словарей по дате операции"""
     return sorted(date, key=lambda x: x['date'], reverse=True)
+
+
+def hides_card_number(number):
+    """Скрываем номер карты"""
+    hidden_number = number[0:6] + "*" * (len(number) - 10) + number[-4:]
+    card_number = hidden_number[0:4] + ' ' + hidden_number[4:8] + ' ' + hidden_number[8:12] + ' ' + hidden_number[12:]
+    return card_number
+
+
+def hide_account_number(number):
+    account_number = "*" * (len(number) - 4) + number[-4:]
+    return account_number
